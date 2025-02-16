@@ -1,0 +1,43 @@
+name: jio_webview_platform_interface
+description: "Reusable base class for jio webview platform interfaces of Flutter federated
+  plugins, to help enforce best practices."
+version: 0.0.1
+homepage: https://github.com/JioCoders/jio_webview_platform_interface.git
+repository: https://github.com/JioCoders/jio_webview_platform_interface.git
+issue_tracker: https://github.com/JioCoders/jio_webview_platform_interface/issues
+
+topics:
+  - federation
+  - plugin-development
+
+environment:
+  sdk: ^3.5.3
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  plugin_platform_interface: ^2.1.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+  mockito: ^5.4.4
+  logger: ^2.5.0
+  build_runner: ^2.4.13
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter packages.
+flutter:
+
+  # To add assets to your package, add an assets section, like this:
+  # assets:
+  #   - images/a_dot_burr.jpeg
+  #   - images/a_dot_ham.jpeg
+  #
+  # For details regarding assets in packages, see
+  # https://flutter.dev/to/asset-from-package
+  #
