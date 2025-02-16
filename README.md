@@ -6,7 +6,7 @@
 
 Published package url -
 ```
-https://pub.dev/packages/jio_webview
+https://pub.dev/packages/jio_webview_platform_interface
 ```
 
 This package provides a base class for platform interfaces of [federated flutter plugins](https://flutter.dev/go/federated-plugins).
