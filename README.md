@@ -1,6 +1,13 @@
-# jio_webview_plugin_platform_interface
+# jio_webview_platform_interface
 
 ![Flutter CI](https://github.com/jiocoders/jio_inet/actions/workflows/flutter-ci.yml/badge.svg)
+
+## Getting Started
+
+Published package url -
+```
+https://pub.dev/packages/jio_webview
+```
 
 This package provides a base class for platform interfaces of [federated flutter plugins](https://flutter.dev/go/federated-plugins).
 
