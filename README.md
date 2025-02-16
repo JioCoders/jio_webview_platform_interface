@@ -1,5 +1,7 @@
 # jio_webview_plugin_platform_interface
 
+![Flutter CI](https://github.com/jiocoders/jio_inet/actions/workflows/flutter-ci.yml/badge.svg)
+
 This package provides a base class for platform interfaces of [federated flutter plugins](https://flutter.dev/go/federated-plugins).
 
 Platform implementations should `extends` their platform interface class rather than `implement`s it, as
