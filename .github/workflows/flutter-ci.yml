@@ -128,7 +128,7 @@ jobs:
         id: determine_new_tag
         run: |
           # Get the latest tag
-          LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
+          LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.1")
 
           # Remove leading 'v' if present and split the version into parts
           VERSION=${LATEST_TAG#v}
