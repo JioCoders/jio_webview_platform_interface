@@ -7,6 +7,9 @@ import 'package:jio_webview_platform_interface/webview/webview_platform_interfac
 class FakeWebviewPlatform extends WebviewPlatformInterface {
   FakeWebviewPlatform({super.customMethodChannel});
 
+  final String testUrl = 'https://jiocoders.com';
+  String fakeUserAgent = 'Fake user agent';
+
   @override
   MethodChannel getWebviewMethodChannel() {
     return methodChannel;
@@ -29,7 +32,7 @@ class FakeWebviewPlatform extends WebviewPlatformInterface {
 
   @override
   Future<String> getCurrentUrl() async {
-    return 'https://example.com';
+    return testUrl;
   }
 
   @override
@@ -59,12 +62,12 @@ class FakeWebviewPlatform extends WebviewPlatformInterface {
 
   @override
   Future<String> getUserAgent() async {
-    return 'fakeUserAgent';
+    return fakeUserAgent;
   }
 
   @override
-  Future<void> setUserAgent(String userAgent) async {
-    // Do nothing.
+  Future<void> setUserAgent(String newUserAgent) async {
+    fakeUserAgent = newUserAgent;
   }
 
   @override

@@ -7,11 +7,14 @@ name: Flutter-CI
 
 on:
   push:
-#    tags:
-#      - 'v*' # Trigger on version tags like v1.0.0
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+*'
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -79,35 +82,17 @@ jobs:
       - name: Run tests
         run: flutter test
 
-#      - name: Create GitHub Release
-#        uses: softprops/action-gh-release@v2
-#        with:
-#          tag_name: ${{ github.ref_name }}
-#          name: Release ${{ github.ref_name }}
-#          body: |
-#            Changes in this release:
-#            - Feature 1
-#            - Bugfix 2
-#            - Improvement 3
-#          draft: false  # Set to true if you want a draft release
-#          prerelease: false  # Set to true if it's a pre-release
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN_RELEASE }}
-#        run: |
-#          flutter build apk
-#          ./create_release.sh
-
       - name: Configure pub.dev token
         env:
           PUB_DEV_CREDENTIALS: ${{ secrets.PUB_DEV_CREDENTIALS }}
         run: echo "$PUB_DEV_CREDENTIALS" > ~/.pub-cache/credentials.json
 
-#      - name: Configure pub.dev credentials
-#        env:
-#          PUB_CREDENTIALS: ${{ secrets.PUB_DEV_CREDENTIALS }}
-#        run: |
-#          mkdir -p ~/.pub-cache
-#          echo "$PUB_CREDENTIALS" > ~/.pub-cache/credentials.json
+      - name: Configure pub.dev credentials
+        env:
+          PUB_CREDENTIALS: ${{ secrets.PUB_DEV_CREDENTIALS }}
+        run: |
+          mkdir -p ~/.pub-cache
+          echo "$PUB_CREDENTIALS" > ~/.pub-cache/credentials.json
 
       - name: Format code
         run: dart format --fix .
@@ -132,16 +117,66 @@ jobs:
           fi
 
       # Modify Tag if it Exist
-#      - name: Modify Tag
-#        if: env.TAG_EXISTS == 'true'
-#        id: modify_tag
-#        run: |
-#          new_version="${{ env.VERSION }}-build-${{ github.run_number }}"
-#          echo "VERSION=$new_version" >> $GITHUB_ENV
+      - name: Modify Tag
+        if: env.TAG_EXISTS == 'true'
+        id: modify_tag
+        run: |
+          new_version="${{ env.VERSION }}-build-${{ github.run_number }}"
+          echo "VERSION=$new_version" >> $GITHUB_ENV
 
-      # Publish the package
-#      - name: Publish to pub.dev
-#        run: flutter pub publish --force
+      - name: Determine new tag version
+        id: determine_new_tag
+        run: |
+          # Remove leading 'v' if present and split the version into parts
+          VERSION=${LATEST_TAG#v}
+          IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION"
+          # Increment the patch version
+          NEW_PATCH=$((PATCH + 1))
+          NEW_TAG="v${MAJOR}.${MINOR}.${NEW_PATCH}"
+          echo "New tag will be: $NEW_TAG"
+          echo "NEW_TAG=${NEW_TAG}" >> $GITHUB_ENV
+
+      - name: Create and push new tag
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git tag "$NEW_TAG"
+          git push origin "$NEW_TAG"
+        env:
+          GITHUB_TOKEN: ${{ secrets.PUB_DEV_CREDENTIALS }}
+
+#      - name: Create GitHub Release
+#        uses: ncipollo/release-action@v1
+#        with:
+#          tag: ${{ github.ref_name }}
+#          name: Release ${{ github.ref_name }}
+#          body: |
+#            Automated release for tag ${{ github.ref_name }}.
 #        env:
-#          PUB_DEV_TOKEN: ${{ secrets.PUB_DEV_TOKEN }}
-#        run: echo "$PUB_DEV_TOKEN" > ~/.pub-cache/credentials.json && dart pub publish --force
+#          GITHUB_TOKEN: ${{ secrets.PUB_DEV_CREDENTIALS }}
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: Release ${{ github.ref_name }}
+          body: |
+            Changes in this release:
+            - Feature 1
+            - Bugfix 2
+            - Improvement 3
+          draft: false  # Set to true if you want a draft release
+          prerelease: false  # Set to true if it's a pre-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.PUB_DEV_CREDENTIALS }}
+        run: |
+          flutter build apk
+          ./create_release.sh
+
+  publish:
+    permissions:
+      id-token: write # Required for authentication using OIDC
+    uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
+    with:
+      environment: 'PUB_DEV_CREDENTIALS'
+      # working-directory: path/to/package/within/repository

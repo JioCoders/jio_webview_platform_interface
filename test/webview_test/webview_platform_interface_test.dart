@@ -2,7 +2,8 @@
 
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:your_package/webview_platform_interface.dart'; // Adjust the import path
+import 'package:jio_webview_platform_interface/jio_webview_platform_interface.dart';
+
 import 'fake_webview_platform.dart'; // Import the fake implementation
 
 void main() {
@@ -21,7 +22,8 @@ void main() {
     });
 
     test('getWebviewMethodChannel returns correct channel', () {
-      final channel = WebviewPlatformInterface.instance.getWebviewMethodChannel();
+      final channel =
+          WebviewPlatformInterface.instance.getWebviewMethodChannel();
       expect(channel.name, equals('com.jiocoders/test_webview'));
     });
 
@@ -36,21 +38,30 @@ void main() {
 
     test('getCurrentUrl returns expected URL', () async {
       final url = await WebviewPlatformInterface.instance.getCurrentUrl();
-      expect(url, equals('https://example.com'));
+      expect(url, equals('https://jiocoders.com'));
     });
 
-    test('getUserAgent returns fake user agent', () async {
+    test('get and set User Agent, returns fake user agent', () async {
       final userAgent = await WebviewPlatformInterface.instance.getUserAgent();
-      expect(userAgent, equals('fakeUserAgent'));
+      expect(userAgent, equals('Fake user agent'));
+
+      String customUserAgent = '$userAgent custom';
+      await WebviewPlatformInterface.instance.setUserAgent(customUserAgent);
+
+      final newUserAgent =
+          await WebviewPlatformInterface.instance.getUserAgent();
+      expect(newUserAgent, equals('Fake user agent custom'));
     });
 
     test('evaluateJavascript returns expected result', () async {
-      final result = await WebviewPlatformInterface.instance.evaluateJavascript('alert("Hi")');
+      final result = await WebviewPlatformInterface.instance
+          .evaluateJavascript('alert("Hi")');
       expect(result, equals('evaluated:alert("Hi")'));
     });
 
     test('runJavaScript returns expected result', () async {
-      final result = await WebviewPlatformInterface.instance.runJavaScript('alert("Hi")');
+      final result =
+          await WebviewPlatformInterface.instance.runJavaScript('alert("Hi")');
       expect(result, equals('ran:alert("Hi")'));
     });
   });
