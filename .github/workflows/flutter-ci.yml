@@ -157,33 +157,30 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.PUB_DEV_CREDENTIALS }}
 
-#      - name: Create GitHub Release
-#        uses: ncipollo/release-action@v1
-#        with:
-#          tag: ${{ github.ref_name }}
-#          name: Release ${{ github.ref_name }}
-#          body: |
-#            Automated release for tag ${{ github.ref_name }}.
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.PUB_DEV_CREDENTIALS }}
-
       - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
+        uses: ncipollo/release-action@v1
         with:
-          tag_name: ${{ github.ref_name }}
+          tag: ${{ github.ref_name }}
           name: Release ${{ github.ref_name }}
           body: |
-            Changes in this release:
-            - Feature 1
-            - Bugfix 2
-            - Improvement 3
-          draft: false  # Set to true if you want a draft release
-          prerelease: false  # Set to true if it's a pre-release
+            Automated release for tag ${{ github.ref_name }}.
         env:
           GITHUB_TOKEN: ${{ secrets.PUB_DEV_CREDENTIALS }}
-#        run: |
-#          flutter build apk
-#          ./create_release.sh
+
+#      - name: Create GitHub Release
+#        uses: softprops/action-gh-release@v2
+#        with:
+#          tag_name: ${{ github.ref_name }}
+#          name: Release ${{ github.ref_name }}
+#          body: |
+#            Changes in this release:
+#            - Feature 1
+#            - Bugfix 2
+#            - Improvement 3
+#          draft: false  # Set to true if you want a draft release
+#          prerelease: false  # Set to true if it's a pre-release
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.PUB_DEV_CREDENTIALS }}
 
   publish:
     permissions:
