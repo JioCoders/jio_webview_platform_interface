@@ -28,7 +28,6 @@ class MethodChannelWebview extends WebviewPlatformInterface {
 
   @override
   Future<void> loadUrl(String url) async {
-    debugPrint('loading-----------url>');
     methodChannel.invokeMethod('loadUrl', {'url': url});
   }
 
