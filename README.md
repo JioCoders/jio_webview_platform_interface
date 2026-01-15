@@ -1,6 +1,6 @@
 # jio_webview_platform_interface
 
-![Flutter CI](https://github.com/jiocoders/jio_webview_platform_interface/actions/workflows/flutter-ci.yml/badge.svg)
+[![Flutter-CI](https://github.com/JioCoders/jio_webview_platform_interface/actions/workflows/flutter-ci.yml/badge.svg)](https://github.com/JioCoders/jio_webview_platform_interface/actions/workflows/flutter-ci.yml)
 
 ## Getting Started
 
