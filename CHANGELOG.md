@@ -13,6 +13,6 @@
 
 * JioWebviewPlatformInterface `flutter-ci` & `pubspec` update.
 
-## 1.0.1 - 15 January 2026
+## 1.0.2 - 15 January 2026
 
 * JioWebviewPlatformInterface `flutter-ci` & `readme` update.
