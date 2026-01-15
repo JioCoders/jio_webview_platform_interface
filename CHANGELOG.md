@@ -8,3 +8,7 @@
 
 * Added `fake_webview_platform` implementation for enforcing that a webview platform interface test 
 * `webview_platform_interface_test` and a `example` project.
+
+## 1.0.0 - 15 January 2026
+
+* JioWebviewPlatformInterface `flutter-ci` & `pubspec` update.
