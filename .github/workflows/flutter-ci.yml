@@ -146,14 +146,14 @@ jobs:
           echo "New tag will be: $NEW_TAG"
           echo "NEW_TAG=${NEW_TAG}" >> $GITHUB_ENV
 
-#      - name: Create and push new tag
-#        run: |
-#          git config --global user.name "github-actions[bot]"
-#          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-#          git tag "$NEW_TAG"
-#          git push origin "$NEW_TAG"
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.PUB_DEV_CREDENTIALS }}
+      - name: Create and push new tag
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git tag "$LATEST_TAG"
+          git push origin "$LATEST_TAG"
+        env:
+          GITHUB_TOKEN: ${{ secrets.PUB_DEV_CREDENTIALS }}
 
       - name: Create GitHub Release
         uses: ncipollo/release-action@v1
