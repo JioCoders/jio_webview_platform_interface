@@ -145,6 +145,7 @@ jobs:
 
           echo "New tag will be: $NEW_TAG"
           echo "NEW_TAG=${NEW_TAG}" >> $GITHUB_ENV
+          echo "$LATEST_TAG=${$LATEST_TAG}" >> $GITHUB_ENV
 
       - name: Create and push new tag
         run: |
