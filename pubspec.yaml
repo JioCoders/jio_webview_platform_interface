@@ -1,7 +1,7 @@
 name: jio_webview_platform_interface
 description: "Reusable base class for jio webview platform interfaces of Flutter federated
   plugins, to help enforce best practices."
-version: 1.0.2
+version: 1.0.1
 homepage: https://github.com/JioCoders/jio_webview_platform_interface.git
 repository: https://github.com/JioCoders/jio_webview_platform_interface.git
 issue_tracker: https://github.com/JioCoders/jio_webview_platform_interface/issues
